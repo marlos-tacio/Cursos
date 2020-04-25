@@ -1,0 +1,75 @@
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    pincel.fillStyle = 'lightgray';
+    pincel.fillRect(0, 0, 600, 400);
+
+    var raio = 10;
+    var xRandom;
+    var yRandom;
+
+    function desenhaCirculo(x, y, raio, cor) {
+
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    function calcularDistancia(x1, y1, x2, y2) {
+
+        return Math.sqrt( (x2 - x1) ** 2 + (y2 - y1) ** 2 );
+    }
+
+    function limparTela() {
+
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    function desenharAlvo(x, y) {
+
+        desenhaCirculo(x, y, raio + 20, 'red');
+        desenhaCirculo(x, y, raio + 10, 'white');
+        desenhaCirculo(x, y, raio, 'red');
+    }
+
+    function sortearPosicao(limInf, limSup) {
+
+        return Math.floor(Math.random() * (limSup - limInf) + limInf);
+    }
+
+    tela.onclick = function (evento) {
+
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop;
+
+        var dist = calcularDistancia(xRandom, yRandom, x, y);
+        console.log("Distância: " + dist);
+
+        if(dist <= raio) {
+
+            alert("No alvo!");
+        } else {
+
+            alert("Fora do alvo!");
+        }
+    }
+
+    function atualizarTela() {
+
+        limparTela();
+
+        xRandom = sortearPosicao(30, 570);
+        yRandom = sortearPosicao(30, 370);
+
+        desenharAlvo(xRandom, yRandom);
+    }
+
+    setInterval(atualizarTela, 1000);
+
+</script>

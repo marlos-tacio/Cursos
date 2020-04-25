@@ -1,0 +1,22 @@
+
+<canvas width="600" height="400"></canvas>
+
+<script type="text/javascript">
+	
+	var tela = document.querySelector('canvas');
+	var pincel = tela.getContext('2d');
+
+	function desenharTriangulo(x1, y1, x2, y2, x3, y3, cor) {
+		
+		pincel.fillStyle = cor;
+		pincel.beginPath();
+		pincel.moveTo(x1, y1);
+		pincel.lineTo(x2, y2);
+		pincel.lineTo(x3, y3);
+		pincel.fill();
+	}
+
+	desenharTriangulo(50, 50, 50, 400, 400, 400, 'black');
+	desenharTriangulo(100, 175, 100, 350, 275, 350, 'white');
+
+</script>

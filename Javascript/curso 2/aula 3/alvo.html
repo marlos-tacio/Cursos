@@ -1,0 +1,54 @@
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    pincel.fillStyle = 'lightgray';
+    pincel.fillRect(0, 0, 600, 400);
+
+    var raio = 10;
+
+    function desenhaCirculo(x, y, raio, cor) {
+
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    function calcularDistancia(x1, y1, x2, y2) {
+
+        return Math.sqrt( (x2 - x1) ** 2 + (y2 - y1) ** 2 );
+    }
+
+    tela.onclick = function (evento) {
+
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop;
+
+
+        var raio = 10;
+        var x0 = 300;
+        var y0 = 200;
+
+        var dist = calcularDistancia(x0, y0, x, y);
+        console.log("Distância: " + dist);
+
+        if(dist <= raio) {
+
+            alert("No alvo!");
+        } else {
+
+            alert("Fora do alvo!");
+        }
+    }
+
+    desenhaCirculo(300, 200, raio + 20, 'red'); // maior círculo
+    desenhaCirculo(300, 200, raio + 10, 'white');
+    desenhaCirculo(300, 200, raio, 'red'); // menor circulo
+
+
+</script>
